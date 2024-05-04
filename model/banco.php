@@ -9,7 +9,7 @@ abstract class Banco{
     
     abstract public function count();
     
-    abstract public function lastAll();
+    abstract public function listAll();
 }
 
 ?>

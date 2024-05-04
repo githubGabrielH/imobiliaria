@@ -1,7 +1,7 @@
 <?php
 
 require_once 'Banco.php';
-require_once '../conexão.php';
+require_once '../conexao.php';
 
 class Usuario extends banco{
     private $id;
@@ -41,7 +41,20 @@ class Usuario extends banco{
     }
 
     public function save(){
+        $result = false;
 
+        $conexao = new Conexao();
+        
+        $query = "insert into usuario (id, login, senha, permissao) values (null, :login,:senha, :permissao)";
+        
+        if($conn = $conexao->getConection()){
+            $stmt = $conn->prepare($query);
+        
+            if($stmt-> execute(array(':login' => $this->login,':senha' => $this->senha,':permissao' => $this->permissao ))){
+                $result = $stmt->rowCount();
+            }
+        }
+        return $result; 
     }
     public function remove($id){
 
@@ -55,21 +68,27 @@ class Usuario extends banco{
 
     }
     public function listAll(){
-
+        $conexao = new Conexao();
+        $conn = $conexao->getConection();
+        
+        $query = "SELECT * from usuario";
+        $stmt = $conn->prepare($query);
+        $result = array();
+        if($stmt->execute()){
+            while($rs = $stmt->fetchObject(Usuario::class)){
+                $result[] = $rs;
+            }
+        }
+        else{
+            $result = false;
+        }
+        
+        return $result;
     }
 }
-$result = false;
 
-$conexao = new Conexao();
 
-$query = "insert into usuario (id, login, senha, permissao) values (null, :login,:senha, :permissao)";
 
-if($conn = $conexao->getConection()){
-    $stmt = $conn->prepare($query);
 
-    if($stmt-> execute(array(':login' => $this->login,':senha' => $this->senha,':permissao' => $this->permissao ))){
-        $result = $stmt->rowCount();
-    }
-}
-return $result;
+
 ?>

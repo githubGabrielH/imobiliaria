@@ -5,7 +5,7 @@ create table usuario(
 	id int(4) auto_increment PRIMARY KEY,
 	login varchar(10),
 	senha varchar (100),
-	permissao char(1),
+	permissao char(1)
 );
 
 create TABLE imovel(
@@ -23,6 +23,6 @@ create table visualizacao(
 	data date,
 	hora time,
 	FOREIGN key(idUsuario) references Usuario(id),
-    FOREIGN key(idImovel) references Imovel(id),
+    FOREIGN key(idImovel) references Imovel(id)
 
 );
