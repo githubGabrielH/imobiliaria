@@ -8,7 +8,7 @@ class UsuarioController{
 
         //armazena as informações do $_POST via set
         $usuario->setLogin($_POST['login']);
-        $usuario->setSenha($_POST['senha']);
+        $usuario->setSenha($_POST['senha1']);
         $usuario->setPermissao($_POST['permissao']);
 
         $usuario->save();

@@ -22,7 +22,7 @@
     require_once "../controller/UsuarioController.php";
     $usuarios = call_user_func(array("UsuarioController", "listar"));
 
-    if(isset($usuario)){
+    if(isset($usuarios)){
         foreach ($usuarios as $usuario){
 
         

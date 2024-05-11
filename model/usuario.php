@@ -44,25 +44,43 @@ class Usuario extends banco{
         $result = false;
 
         $conexao = new Conexao();
-        
-        $query = "insert into usuario (id, login, senha, permissao) values (null, :login,:senha, :permissao)";
-        
-        if($conn = $conexao->getConection()){
-            $stmt = $conn->prepare($query);
+            if($conn = $conexao->getConection()){
+             if($this->id>0){
+             $query = "UPTADE usuario set login = :login, senha = :senha, permissao = :permissao where id = :id";
+                 $stmt = $conn->prepare($query);
         
             if($stmt-> execute(array(':login' => $this->login,':senha' => $this->senha,':permissao' => $this->permissao ))){
                 $result = $stmt->rowCount();
             }
+        }else{
+           $query = "insert into usuario (id, login, senha, permissao) values (null, :login,:senha, :permissao)";
+           $stmt = $conn->prepare($query);
+            if ($stmt->execute(array(':login' => $this->login, ':senha' => $this->senha, ':permissao' => $this->permissao))) {
+
+            }
         }
-        return $result; 
-    }
+     }
+    return $result; 
+   }
     public function remove($id){
 
     }
 
     public function find($id){
-
-    }
+        $conexao = new Conexao();
+        $conn = $conexao->getConection();
+        $query = "SELECT * from usuario where id= :id";
+        $stmt = $conn->prepare($query);
+        if($stmt-> execute(array(':id' => $id))){
+            if($stmt->rowCoutn() > 0){
+                $result = $stmt->fecthObject(Usuario::class);
+            }else{
+                $result = false;
+            }
+            }
+            return $result;
+        } 
+    
 
     public function count(){
 
@@ -86,8 +104,6 @@ class Usuario extends banco{
         return $result;
     }
 }
-
-
 
 
 
