@@ -3,11 +3,12 @@
 require_once 'banco.php';
 require_once 'conexao.php';
 
-class Usuario extends banco{
+class Imovel extends banco{
     private $id;
-    private $login;
-    private $senha;
-    private $permissao;
+    private $descricao;
+    private $foto;
+    private $valor;
+    private $tipo;
 
     public function getId(){
         return $this->id;
@@ -17,27 +18,33 @@ class Usuario extends banco{
     }
 
     
-    public function getLogin(){
-        return $this->login;
+    public function getDescricao(){
+        return $this->descricao;
     }
-    public function setLogin($login){
-         $this->login = $login;
-    }
-
-    
-    public function getSenha(){
-        return $this->senha;
-    }
-    public function setSenha($senha){
-         $this->senha = $senha;
+    public function setDescricao($descricao){
+         $this->descricao = $descricao;
     }
 
     
-    public function getPermissao(){
-        return $this->permissao;
+    public function getfoto(){
+        return $this->foto;
     }
-    public function setPermissao($permissao){
-         $this->permissao  = $permissao;
+    public function setfoto($foto){
+         $this->foto = $foto;
+    }
+
+    
+    public function getvalor(){
+        return $this->valor;
+    }
+    public function setvalor($valor){
+         $this->valor  = $valor;
+    }
+    public function gettipo(){
+        return $this->tipo;
+    }
+    public function settipo($tipo){
+         $this->tipo  = $tipo;
     }
 
     public function save(){
@@ -46,16 +53,16 @@ class Usuario extends banco{
         $conexao = new Conexao();
             if($conn = $conexao->getConection()){
              if($this->id>0){
-             $query = "UPTADE usuario set login = :login, senha = :senha, permissao = :permissao where id = :id";
+             $query = "UPTADE usuario set descricao = :descricao, foto = :foto, valor = :valor where id = :id";
                  $stmt = $conn->prepare($query);
         
-            if($stmt-> execute(array(':login' => $this->login,':senha' => $this->senha,':permissao' => $this->permissao ))){
+            if($stmt-> execute(array(':descricao' => $this->descricao,':foto' => $this->foto,':valor' => $this->valor ))){
                 $result = $stmt->rowCount();
             }
         }else{
-           $query = "insert into usuario (id, login, senha, permissao) values (null, :login,:senha, :permissao)";
+           $query = "insert into usuario (id, descricao, foto, valor) values (null, :descricao,:foto, :valor)";
            $stmt = $conn->prepare($query);
-            if ($stmt->execute(array(':login' => $this->login, ':senha' => $this->senha, ':permissao' => $this->permissao))) {
+            if ($stmt->execute(array(':descricao' => $this->descricao, ':foto' => $this->foto, ':valor' => $this->valor))) {
 
             }
         }
@@ -73,7 +80,7 @@ class Usuario extends banco{
         $stmt = $conn->prepare($query);
         if($stmt-> execute(array(':id' => $id))){
             if($stmt->rowCoutn() > 0){
-                $result = $stmt->fecthObject(Usuario::class);
+                $result = $stmt->fecthObject(Imovel::class);
             }else{
                 $result = false;
             }
@@ -93,7 +100,7 @@ class Usuario extends banco{
         $stmt = $conn->prepare($query);
         $result = array();
         if($stmt->execute()){
-            while($rs = $stmt->fetchObject(Usuario::class)){
+            while($rs = $stmt->fetchObject(Imovel::class)){
                 $result[] = $rs;
             }
         }

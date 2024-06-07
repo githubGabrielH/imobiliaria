@@ -1,6 +1,6 @@
 <?php
 
-require_once 'controller/UsuarioController.php';
+require_once 'controller/ImovelController.php';
 
 ?>
 <!doctype html>
@@ -17,20 +17,20 @@ require_once 'controller/UsuarioController.php';
 if(isset($_GET['action'])){
    
     if($_GET['action'] == 'editar'){
-        $usuario = call_user_func(array('usuarioController', 'editar'), $_GET['id']);
+        $Imovel = call_user_func(array('ImovelController', 'editar'), $_GET['id']);
     }
     
     if($_GET['action'] == 'listar'){
-        require_once 'view/listUsuario.php';
+        require_once 'view/listImovel.php';
     }
     
     if($_GET['action'] == 'excluir'){
-        $usuario = call_user_func(array('usuarioController', 'excluir'), $_GET['id']);
-        require_once 'view/listUsuario.php';
+        $Imovel = call_user_func(array('ImovelController', 'excluir'), $_GET['id']);
+        require_once 'view/listImovel.php';
     }
 
 }else{
-    require_once 'view/CadUsuario.php';
+    require_once 'view/CadImovel.php';
 }
   ?>
     <h1>Hello, world!</h1>

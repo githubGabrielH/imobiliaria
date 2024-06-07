@@ -19,10 +19,10 @@
     </thead> 
     <tbody>
         <?php
-    require_once "../controller/UsuarioController.php";
+    require_once "controller/UsuarioController.php";
     $usuarios = call_user_func(array("UsuarioController", "listar"));
 
-    if(isset($usuarios)){
+    if(isset($usuarios) && !empty($usuario)){
         foreach ($usuarios as $usuario){
 
         
@@ -33,8 +33,8 @@
             <td> <?php echo $usuario->getLogin(); ?></td>
             <td> <?php echo $usuario->getPermissao(); ?></td>
             <td> 
-                <a href=""> Editar  </a>
-                <a href=""> Excluir  </a>
+                <a href="index.php?action=editar&id=<?php echo $usuario->getId();?>"> Editar  </a>
+                <a href="index.php?action=editar&id=<?php echo $usuario->getId();?>>"> Excluir  </a>
             </td>
         </tr>     
 
